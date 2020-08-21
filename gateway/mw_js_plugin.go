@@ -520,7 +520,7 @@ func (j *JSVM) LoadTykJSApi() {
 		tr.Proxy = proxyFromAPI(j.Spec)
 
 		// using new Client each time should be ok, since we closing connection every time
-		client := &http.Client{Transport: tr}
+		client := &http.Client{Transport: tr, Timeout: 5 * time.Second}
 		resp, err := client.Do(r)
 		if err != nil {
 			j.Log.WithError(err).Error("Request failed")
